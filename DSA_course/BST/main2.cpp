@@ -47,6 +47,17 @@ public:
             right_child = new_node;
         }
     }
+    // pre_order traversal
+    void pre_order()
+    {
+        cout << value << " ";
+
+        if (left_child != nullptr)
+            left_child->pre_order();
+
+        if (right_child != nullptr)
+            right_child->pre_order();
+    }
 };
 
 int main()
@@ -66,12 +77,16 @@ int main()
     BinaryTree *e_node = c_node->left_child;
     BinaryTree *f_node = c_node->right_child;
 
-    cout << a_node->value << endl; // a
-    cout << b_node->value << endl; // b
-    cout << c_node->value << endl; // c
-    cout << d_node->value << endl; // d
-    cout << e_node->value << endl; // e
-    cout << f_node->value << endl; // f
+    // cout << a_node->value << endl; // a
+    // cout << b_node->value << endl; // b
+    // cout << c_node->value << endl; // c
+    // cout << d_node->value << endl; // d
+    // cout << e_node->value << endl; // e
+    // cout << f_node->value << endl; // f
+
+    cout << "Pre-order traversal:" << endl;
+    a_node->pre_order(); // a, b, d, c, e, f
+    cout << endl;
 
     delete f_node;
     delete e_node;
