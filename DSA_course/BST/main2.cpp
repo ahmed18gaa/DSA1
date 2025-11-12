@@ -58,6 +58,17 @@ public:
         if (right_child != nullptr)
             right_child->pre_order();
     }
+    // in_order traversal
+    void in_order()
+    {
+        if (left_child != nullptr)
+            left_child->in_order();
+
+        cout << value << " ";
+
+        if (right_child != nullptr)
+            right_child->in_order();
+    }
 };
 
 int main()
@@ -84,8 +95,11 @@ int main()
     // cout << e_node->value << endl; // e
     // cout << f_node->value << endl; // f
 
-    cout << "Pre-order traversal:" << endl;
-    a_node->pre_order(); // a, b, d, c, e, f
+    // cout << "Pre-order traversal:" << endl;
+    // a_node->pre_order(); // a, b, d, c, e, f
+
+    cout << "In-order traversal:" << endl;
+    a_node->in_order(); // Expected order: b, d, a, e, c, f
     cout << endl;
 
     delete f_node;
