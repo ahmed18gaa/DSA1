@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -9,7 +10,6 @@ public:
     BinaryTree *left_child;
     BinaryTree *right_child;
 
-    // Constructor
     BinaryTree(int val)
     {
         value = val;
@@ -17,105 +17,80 @@ public:
         right_child = nullptr;
     }
 
-    // insert_left method
-    void insert_left(int val)
-    {
-        if (left_child == nullptr)
-        {
-            left_child = new BinaryTree(val);
-        }
-        else
-        {
-            BinaryTree *new_node = new BinaryTree(val);
-            new_node->left_child = left_child;
-            left_child = new_node;
-        }
-    }
-
-    // insert_right method
-    void insert_right(int val)
-    {
-        if (right_child == nullptr)
-        {
-            right_child = new BinaryTree(val);
-        }
-        else
-        {
-            BinaryTree *new_node = new BinaryTree(val);
-            new_node->right_child = right_child;
-            right_child = new_node;
-        }
-    }
-
-    // pre_order traversal
+    // Traversals
     void pre_order()
     {
         cout << value << " ";
-
-        if (left_child != nullptr)
+        if (left_child)
             left_child->pre_order();
-
-        if (right_child != nullptr)
+        if (right_child)
             right_child->pre_order();
     }
 
-    // in_order traversal
     void in_order()
     {
-        if (left_child != nullptr)
+        if (left_child)
             left_child->in_order();
-
         cout << value << " ";
-
-        if (right_child != nullptr)
+        if (right_child)
             right_child->in_order();
     }
 
-    // post_order traversal
     void post_order()
     {
-        if (left_child != nullptr)
+        if (left_child)
             left_child->post_order();
-
-        if (right_child != nullptr)
+        if (right_child)
             right_child->post_order();
-
         cout << value << " ";
+    }
+
+    void bfs()
+    {
+        queue<BinaryTree *> q;
+        q.push(this);
+        while (!q.empty())
+        {
+            BinaryTree *current = q.front();
+            q.pop();
+            cout << current->value << " ";
+            if (current->left_child)
+                q.push(current->left_child);
+            if (current->right_child)
+                q.push(current->right_child);
+        }
     }
 };
 
 int main()
 {
-    BinaryTree *a_node = new BinaryTree(1);
-    a_node->insert_left(2);
-    a_node->insert_right(3);
+    // Build the tree shown in the image
+    BinaryTree *root = new BinaryTree(1);
+    root->left_child = new BinaryTree(2);
+    root->right_child = new BinaryTree(5);
+    root->left_child->left_child = new BinaryTree(3);
+    root->left_child->right_child = new BinaryTree(4);
+    root->right_child->left_child = new BinaryTree(6);
+    root->right_child->right_child = new BinaryTree(7);
 
-    BinaryTree *b_node = a_node->left_child;
-    b_node->insert_right(4);
-
-    BinaryTree *c_node = a_node->right_child;
-    c_node->insert_left(5);
-    c_node->insert_right(6);
-
-    cout << "Pre-order traversal: \n";
-    a_node->pre_order(); // 1 2 4 3 5 6
+    cout << "BFS (level-order): \n";
+    root->bfs(); // 1 2 5 3 4 6 7
+    cout << "\nPre-order: \n";
+    root->pre_order(); // 1 2 3 4 5 6 7
+    cout << "\nIn-order: \n";
+    root->in_order(); // 3 2 4 1 6 5 7
+    cout << "\nPost-order: \n";
+    root->post_order(); // 3 4 2 6 7 5 1
     cout << endl;
 
-    cout << "In-order traversal: \n";
-    a_node->in_order(); // 2 4 1 5 3 6
-    cout << endl;
-
-    cout << "Post-order traversal: \n";
-    a_node->post_order(); // 4 2 5 6 3 1
-    cout << endl;
-
-    // Free memory (optional cleanup)
-    delete a_node->right_child->right_child; // 6
-    delete a_node->right_child->left_child;  // 5
-    delete a_node->right_child;              // 3
-    delete a_node->left_child->right_child;  // 4
-    delete a_node->left_child;               // 2
-    delete a_node;                           // 1
+    // Cleanup (manual delete)
+    delete root->right_child->right_child; // 7
+    delete root->right_child->left_child;  // 6
+    delete root->right_child;              // 5
+    delete root->left_child->right_child;  // 4
+    delete root->left_child->left_child;   // 3
+    delete root->left_child;               // 2
+    delete root;                           // 1
 
     return 0;
 }
