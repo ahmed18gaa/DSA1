@@ -1,0 +1,84 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class BinaryTree
+{
+public:
+    string value;
+    BinaryTree *left_child;
+    BinaryTree *right_child;
+
+    // Constructor
+    BinaryTree(const string &val)
+    {
+        value = val;
+        left_child = nullptr;
+        right_child = nullptr;
+    }
+
+    // insert_left method
+    void insert_left(const string &val)
+    {
+        if (left_child == nullptr)
+        {
+            left_child = new BinaryTree(val);
+        }
+        else
+        {
+            BinaryTree *new_node = new BinaryTree(val);
+            new_node->left_child = left_child;
+            left_child = new_node;
+        }
+    }
+
+    // insert_right method
+    void insert_right(const string &val)
+    {
+        if (right_child == nullptr)
+        {
+            right_child = new BinaryTree(val);
+        }
+        else
+        {
+            BinaryTree *new_node = new BinaryTree(val);
+            new_node->right_child = right_child;
+            right_child = new_node;
+        }
+    }
+};
+
+int main()
+{
+    BinaryTree *a_node = new BinaryTree("a");
+    a_node->insert_left("b");
+    a_node->insert_right("c");
+
+    BinaryTree *b_node = a_node->left_child;
+    b_node->insert_right("d");
+
+    BinaryTree *c_node = a_node->right_child;
+    c_node->insert_left("e");
+    c_node->insert_right("f");
+
+    BinaryTree *d_node = b_node->right_child;
+    BinaryTree *e_node = c_node->left_child;
+    BinaryTree *f_node = c_node->right_child;
+
+    cout << a_node->value << endl; // a
+    cout << b_node->value << endl; // b
+    cout << c_node->value << endl; // c
+    cout << d_node->value << endl; // d
+    cout << e_node->value << endl; // e
+    cout << f_node->value << endl; // f
+
+    delete f_node;
+    delete e_node;
+    delete d_node;
+    delete c_node;
+    delete b_node;
+    delete a_node;
+
+    return 0;
+}
