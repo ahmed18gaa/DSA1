@@ -42,6 +42,14 @@ public:
             }
         }
     }
+    bool find_node(int val)
+    {
+        if (val < value && left_child != nullptr)
+            return left_child->find_node(val);
+        if (val > value && right_child != nullptr)
+            return right_child->find_node(val);
+        return val == value;
+    }
     // Inorder traversal (Left -> Root -> Right)
     void inorder_traversal()
     {
@@ -68,5 +76,11 @@ int main()
     cout << "Inorder traversal (sorted order): ";
     root->inorder_traversal();
     cout << endl;
+
+    int searchValue = 52;
+    if (root->find_node(searchValue))
+        cout << searchValue << " found in the tree." << endl;
+    else
+        cout << searchValue << " not found in the tree." << endl;
     return 0;
 }
