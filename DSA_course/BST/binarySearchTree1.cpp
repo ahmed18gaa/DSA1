@@ -82,5 +82,7 @@ int main()
         cout << searchValue << " found in the tree." << endl;
     else
         cout << searchValue << " not found in the tree." << endl;
+
+    delete (root);
     return 0;
 }
