@@ -53,6 +53,20 @@ public:
         }
         return false;
     }
+
+    bool removeVertex(string vertex)
+    {
+        if (adjList.count(vertex) == 0)
+        {
+            return false;
+        }
+        for (auto otherVertex : adjList.at(vertex))
+        {
+            adjList.at(otherVertex).erase(vertex);
+        }
+        adjList.erase(vertex);
+        return true;
+    }
 };
 
 int main()
@@ -60,12 +74,17 @@ int main()
     Graph *myGraph = new Graph();
     myGraph->addVertex("A");
     myGraph->addVertex("B");
+    myGraph->addVertex("C");
+    myGraph->addVertex("D");
     myGraph->addEdge("A", "B");
+    myGraph->addEdge("A", "C");
+    myGraph->addEdge("A", "D");
+    myGraph->addEdge("B", "D");
+    myGraph->addEdge("C", "D");
     myGraph->printGraph();
     cout << "--------------------------" << endl;
-    myGraph->removeEdge("A", "B");
+    myGraph->removeVertex("D");
     myGraph->printGraph();
-
     delete myGraph;
     return 0;
 }
