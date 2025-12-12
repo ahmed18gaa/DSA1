@@ -1,7 +1,11 @@
+
 #include <iostream>
 #include <vector>
+#include <climits>
+
 using namespace std;
-class Heap
+
+class MinHeap
 {
 private:
     vector<int> heap;
@@ -47,38 +51,39 @@ public:
     {
         return heap;
     }
-
     void insert(int value)
     {
         heap.push_back(value);
         int current = heap.size() - 1;
 
-        while (current > 0 && heap[current] > heap[parent(current)])
+        while (current > 0 && heap[current] < heap[parent(current)])
         {
             swap(current, parent(current));
             current = parent(current);
         }
     }
-
     void sinkDown(int index)
     {
-        int maxIndex = index;
+        int minIndex = index;
         while (true)
         {
             int leftIndex = leftChild(index);
             int rightIndex = rightChild(index);
-            if (leftIndex < heap.size() && heap[leftIndex] > heap[maxIndex])
+
+            if (leftIndex < heap.size() && heap[leftIndex] < heap[minIndex])
             {
-                maxIndex = leftIndex;
+                minIndex = leftIndex;
             }
-            if (rightIndex < heap.size() && heap[rightIndex] > heap[maxIndex])
+
+            if (rightIndex < heap.size() && heap[rightIndex] < heap[minIndex])
             {
-                maxIndex = rightIndex;
+                minIndex = rightIndex;
             }
-            if (maxIndex != index)
+
+            if (minIndex != index)
             {
-                swap(index, maxIndex);
-                index = maxIndex;
+                swap(index, minIndex);
+                index = minIndex;
             }
             else
             {
@@ -86,14 +91,15 @@ public:
             }
         }
     }
-
     int remove()
     {
         if (heap.empty())
         {
             return INT_MIN;
         }
-        int maxValue = heap.front();
+
+        int minValue = heap.front();
+
         if (heap.size() == 1)
         {
             heap.pop_back();
@@ -104,13 +110,14 @@ public:
             heap.pop_back();
             sinkDown(0);
         }
-        return maxValue;
+
+        return minValue;
     }
 };
 
 int main()
 {
-    Heap *myHeap = new Heap();
+    MinHeap *myHeap = new MinHeap();
     myHeap->insert(95);
     myHeap->insert(75);
     myHeap->insert(80);
