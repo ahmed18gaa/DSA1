@@ -1,4 +1,6 @@
 #include <iostream>
+#include <queue>
+#include <vector>
 using namespace std;
 
 class Node
@@ -126,6 +128,27 @@ public:
         root = deleteNode(root, value);
     }
 
+    void printBT(const string &prefix, const Node *node, bool isLeft)
+    {
+        if (node != nullptr)
+        {
+            cout << prefix;
+
+            cout << (isLeft ? "├──" : "└──");
+
+            // print the value of the node
+            cout << node->value << endl;
+
+            // enter the next tree level - left and right branch
+            printBT(prefix + (isLeft ? "│   " : "    "), node->left, true);
+            printBT(prefix + (isLeft ? "│   " : "    "), node->right, false);
+        }
+    }
+    void printBT()
+    {
+        printBT("", root, false);
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -155,7 +178,10 @@ int main()
     myBST->rInsert(27);
     myBST->rInsert(52);
     myBST->rInsert(82);
+    cout << endl;
+    myBST->printBT();
 
-    delete myBST;
+    cout << endl;
+    delete (myBST);
     return 0;
 }
