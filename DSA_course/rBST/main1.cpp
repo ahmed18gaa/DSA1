@@ -26,65 +26,6 @@ public:
         root = nullptr;
     }
 
-    bool insert(int value)
-    {
-        Node *newNode = new Node(value);
-        if (root == nullptr)
-        {
-            root = newNode;
-            return true;
-        }
-        Node *temp = root;
-        while (true)
-        {
-            if (newNode->value == temp->value)
-            {
-                return false;
-            }
-            if (newNode->value < temp->value)
-            {
-                if (temp->left == nullptr)
-                {
-                    temp->left = newNode;
-                    return true;
-                }
-                temp = temp->left;
-            }
-            else
-            {
-                if (temp->right == nullptr)
-                {
-                    temp->right = newNode;
-                    return true;
-                }
-                temp = temp->right;
-            }
-        }
-    }
-
-    bool contains(int value)
-    {
-        Node *temp = root;
-        while (temp)
-        {
-            if (value < temp->value)
-            {
-                temp = temp->left;
-            }
-            else if (value > temp->value)
-            {
-                temp = temp->right;
-            }
-            else
-            {
-                delete (temp);
-                return true;
-            }
-        }
-        delete (temp);
-        return false;
-    }
-
     bool rContains(Node *currentNode, int value)
     {
         if (currentNode == nullptr)
@@ -104,6 +45,30 @@ public:
     bool rContains(int value)
     {
         return rContains(root, value);
+    }
+
+    Node *rInsert(Node *currentNode, int value)
+    {
+        if (currentNode == nullptr)
+            return new Node(value);
+        if (value < currentNode->value)
+        {
+            currentNode->left = rInsert(currentNode->left, value);
+        }
+        else if (value > currentNode->value)
+        {
+            currentNode->right = rInsert(currentNode->right, value);
+        }
+        return currentNode;
+    }
+
+    void rInsert(int value)
+    {
+        if (root == nullptr)
+        {
+            root = new Node(value);
+        }
+        rInsert(root, value);
     }
 
     void destroy(Node *currentNode)
@@ -128,18 +93,22 @@ public:
 int main()
 {
     BinarySearchTree *myBST = new BinarySearchTree();
-    myBST->insert(47);
-    myBST->insert(21);
-    myBST->insert(76);
-    myBST->insert(18);
-    myBST->insert(52);
-    myBST->insert(82);
-    myBST->insert(27);
+    myBST->rInsert(47);
+    myBST->rInsert(21);
+    myBST->rInsert(76);
+    myBST->rInsert(18);
+    myBST->rInsert(52);
+    myBST->rInsert(82);
+    myBST->rInsert(27);
 
     cout << "\nBST Contains 27:\n";
     cout << myBST->rContains(27);
     cout << "\nBST Contains 17:\n";
     cout << myBST->rContains(17);
+
+    myBST->rInsert(5);
+    cout << "\nBST Contains 5:\n";
+    cout << myBST->rContains(5);
 
     cout << endl;
     delete myBST;
