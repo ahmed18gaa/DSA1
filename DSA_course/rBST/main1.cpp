@@ -176,8 +176,14 @@ int main()
     myBST->rInsert(76);
     myBST->rInsert(18);
     myBST->rInsert(27);
+    myBST->rInsert(25);
+    myBST->rInsert(28);
     myBST->rInsert(52);
     myBST->rInsert(82);
+    cout << endl;
+    myBST->printBT();
+
+    myBST->deleteNode(21);
     cout << endl;
     myBST->printBT();
 
