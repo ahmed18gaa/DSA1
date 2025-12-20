@@ -17,7 +17,7 @@ public:
 
 class BinarySearchTree
 {
-public:
+private:
     Node *root;
 
 public:
@@ -71,6 +71,61 @@ public:
         rInsert(root, value);
     }
 
+    int minValue(Node *currentNode)
+    {
+        while (currentNode->left != nullptr)
+        {
+            currentNode = currentNode->left;
+        }
+        return currentNode->value;
+    }
+
+    Node *deleteNode(Node *currentNode, int value)
+    {
+        if (currentNode == nullptr)
+            return nullptr;
+        if (value < currentNode->value)
+        {
+            currentNode->left = deleteNode(currentNode->left, value);
+        }
+        else if (value > currentNode->value)
+        {
+            currentNode->right = deleteNode(currentNode->right, value);
+        }
+        else
+        {
+            if (currentNode->left == nullptr && currentNode->right == nullptr)
+            {
+                delete (currentNode);
+                return nullptr;
+            }
+            else if (currentNode->left == nullptr)
+            {
+                Node *temp = currentNode->right;
+                delete (currentNode);
+                return temp;
+            }
+            else if (currentNode->right == nullptr)
+            {
+                Node *temp = currentNode->left;
+                delete (currentNode);
+                return temp;
+            }
+            else
+            {
+                int subTreeMin = minValue(currentNode->right);
+                currentNode->value = subTreeMin;
+                currentNode->right = deleteNode(currentNode->right, subTreeMin);
+            }
+        }
+        return currentNode;
+    }
+
+    void deleteNode(int value)
+    {
+        root = deleteNode(root, value);
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -97,20 +152,10 @@ int main()
     myBST->rInsert(21);
     myBST->rInsert(76);
     myBST->rInsert(18);
+    myBST->rInsert(27);
     myBST->rInsert(52);
     myBST->rInsert(82);
-    myBST->rInsert(27);
 
-    cout << "\nBST Contains 27:\n";
-    cout << myBST->rContains(27);
-    cout << "\nBST Contains 17:\n";
-    cout << myBST->rContains(17);
-
-    myBST->rInsert(5);
-    cout << "\nBST Contains 5:\n";
-    cout << myBST->rContains(5);
-
-    cout << endl;
     delete myBST;
     return 0;
 }
