@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 using namespace std;
 
 class Node
@@ -17,8 +18,8 @@ public:
 
 class BinarySearchTree
 {
-public:
-    Node *root;
+private:
+    Node *root = nullptr;
 
 public:
     BinarySearchTree()
@@ -77,12 +78,29 @@ public:
             }
             else
             {
-                delete (temp);
                 return true;
             }
         }
-        delete (temp);
         return false;
+    }
+
+    void BFS()
+    {
+        if (root == nullptr)
+            return;
+        queue<Node *> myQueue;
+        myQueue.push(root);
+        while (!myQueue.empty())
+        {
+            Node *currentNode = myQueue.front();
+            myQueue.pop();
+            cout << currentNode->value << " ";
+            if (currentNode->left)
+                myQueue.push(currentNode->left);
+            if (currentNode->right)
+                myQueue.push(currentNode->right);
+        }
+        cout << endl;
     }
 
     void destroy(Node *currentNode)
@@ -115,7 +133,8 @@ int main()
     myBST->insert(82);
     myBST->insert(27);
 
-    cout << myBST->root->left->right->value << endl;
-    cout << myBST->contains(17) << endl;
+    myBST->BFS();
+
+    delete (myBST);
     return 0;
 }
