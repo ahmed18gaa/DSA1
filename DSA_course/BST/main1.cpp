@@ -153,6 +153,19 @@ public:
         DFSInOrder(root);
     }
 
+    int maxDepth(Node *root)
+    {
+        if (!root)
+        {
+            return 0;
+        }
+        return 1 + max(maxDepth(root->left), maxDepth(root->right));
+    }
+    void maxDepth()
+    {
+        cout << "Max Depth: " << maxDepth(root) << endl;
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -197,6 +210,8 @@ int main()
     cout << "DFS In Order: ";
     myBST->DFSInOrder();
     cout << endl;
+
+    myBST->maxDepth();
 
     delete (myBST);
     return 0;
