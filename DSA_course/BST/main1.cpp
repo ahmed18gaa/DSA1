@@ -136,6 +136,23 @@ public:
         DFSPostOrder(root);
     }
 
+    void DFSInOrder(Node *currentNode)
+    {
+        if (currentNode->left)
+        {
+            DFSInOrder(currentNode->left);
+        }
+        cout << currentNode->value << " ";
+        if (currentNode->right)
+        {
+            DFSInOrder(currentNode->right);
+        }
+    }
+    void DFSInOrder()
+    {
+        DFSInOrder(root);
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -175,6 +192,10 @@ int main()
 
     cout << "DFS Post Order: ";
     myBST->DFSPostOrder();
+    cout << endl;
+
+    cout << "DFS In Order: ";
+    myBST->DFSInOrder();
     cout << endl;
 
     delete (myBST);
