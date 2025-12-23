@@ -103,6 +103,23 @@ public:
         cout << endl;
     }
 
+    void DFSPreOrder(Node *currentNode)
+    {
+        cout << currentNode->value << " ";
+        if (currentNode->left)
+        {
+            DFSPreOrder(currentNode->left);
+        }
+        if (currentNode->right)
+        {
+            DFSPreOrder(currentNode->right);
+        }
+    }
+    void DFSPreOrder()
+    {
+        DFSPreOrder(root);
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -132,8 +149,11 @@ int main()
     myBST->insert(52);
     myBST->insert(82);
     myBST->insert(27);
-
+    cout << "BFS: ";
     myBST->BFS();
+    cout << "DFS Pre Order: ";
+    myBST->DFSPreOrder();
+    cout << endl;
 
     delete (myBST);
     return 0;
