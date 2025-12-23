@@ -100,7 +100,6 @@ public:
             if (currentNode->right)
                 myQueue.push(currentNode->right);
         }
-        cout << endl;
     }
 
     void DFSPreOrder(Node *currentNode)
@@ -118,6 +117,23 @@ public:
     void DFSPreOrder()
     {
         DFSPreOrder(root);
+    }
+
+    void DFSPostOrder(Node *currentNode)
+    {
+        if (currentNode->left)
+        {
+            DFSPostOrder(currentNode->left);
+        }
+        if (currentNode->right)
+        {
+            DFSPostOrder(currentNode->right);
+        }
+        cout << currentNode->value << " ";
+    }
+    void DFSPostOrder()
+    {
+        DFSPostOrder(root);
     }
 
     void destroy(Node *currentNode)
@@ -151,8 +167,14 @@ int main()
     myBST->insert(27);
     cout << "BFS: ";
     myBST->BFS();
+    cout << endl;
+
     cout << "DFS Pre Order: ";
     myBST->DFSPreOrder();
+    cout << endl;
+
+    cout << "DFS Post Order: ";
+    myBST->DFSPostOrder();
     cout << endl;
 
     delete (myBST);
