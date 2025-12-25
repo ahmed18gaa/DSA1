@@ -166,6 +166,28 @@ public:
         cout << "Max Depth: " << maxDepth(root) << endl;
     }
 
+    bool isCompleteTree(Node *root)
+    {
+        if (root == nullptr)
+            return true;
+        queue<Node *> q{{root}};
+        while (q.front() != nullptr)
+        {
+            Node *node = q.front();
+            q.pop();
+            q.push(node->left);
+            q.push(node->right);
+        }
+        while (!q.empty() && q.front() == nullptr)
+            q.pop();
+        return q.empty();
+    }
+    void isCompleteTree()
+    {
+        cout << boolalpha;
+        cout << "Is Complete Tree: " << isCompleteTree(root) << endl;
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -212,6 +234,8 @@ int main()
     cout << endl;
 
     myBST->maxDepth();
+
+    myBST->isCompleteTree();
 
     delete (myBST);
     return 0;
