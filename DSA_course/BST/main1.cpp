@@ -188,6 +188,65 @@ public:
         cout << "Is Complete Tree: " << isCompleteTree(root) << endl;
     }
 
+    vector<vector<int>> zigzagLevelOrder(Node *root)
+    {
+        vector<vector<int>> res;
+        if (!root)
+            return res;
+
+        deque<Node *> dq;
+        dq.push_back(root);
+        bool reverse = false;
+
+        while (!dq.empty())
+        {
+            int size = dq.size();
+            vector<int> level;
+
+            for (int i = 0; i < size; i++)
+            {
+                if (!reverse)
+                {
+                    Node *node = dq.front();
+                    dq.pop_front();
+                    level.push_back(node->value);
+                    if (node->left)
+                        dq.push_back(node->left);
+                    if (node->right)
+                        dq.push_back(node->right);
+                }
+                else
+                {
+                    Node *node = dq.back();
+                    dq.pop_back();
+                    level.push_back(node->value);
+                    if (node->right)
+                        dq.push_front(node->right);
+                    if (node->left)
+                        dq.push_front(node->left);
+                }
+            }
+
+            res.push_back(level);
+            reverse = !reverse;
+        }
+
+        return res;
+    }
+    void zigzagLevelOrder()
+    {
+        cout << "Zigzag Level Order:\n";
+        vector<vector<int>> result = zigzagLevelOrder(root);
+        for (const auto &level : result)
+        {
+            for (int val : level)
+            {
+                cout << val << " ";
+            }
+            cout << endl;
+        }
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -236,6 +295,8 @@ int main()
     myBST->maxDepth();
 
     myBST->isCompleteTree();
+
+    myBST->zigzagLevelOrder();
 
     delete (myBST);
     return 0;
