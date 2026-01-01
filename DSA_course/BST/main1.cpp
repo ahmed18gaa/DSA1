@@ -247,6 +247,30 @@ public:
         }
     }
 
+    int sumOfLeftLeaves(Node *root)
+    {
+        if (root == NULL)
+        {
+            return 0;
+        }
+        int sum = 0;
+        if (root->left && root->left->left == NULL && root->left->right == NULL)
+        {
+            sum = sum + (root->left->value);
+        }
+        else
+        {
+            sum = sum + sumOfLeftLeaves(root->left);
+        }
+        sum = sum + sumOfLeftLeaves(root->right); // process right subtree
+
+        return sum;
+    }
+    void sumOfLeftLeaves()
+    {
+        cout << "Sum Of Left Leaves: " << sumOfLeftLeaves(root) << endl;
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -297,6 +321,8 @@ int main()
     myBST->isCompleteTree();
 
     myBST->zigzagLevelOrder();
+
+    myBST->sumOfLeftLeaves();
 
     delete (myBST);
     return 0;
