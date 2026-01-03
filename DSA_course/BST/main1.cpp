@@ -297,6 +297,34 @@ public:
         cout << "Diameter Of Binary Tree: " << diameterOfBinaryTree(root) << endl;
     }
 
+    bool hasPathSum(Node *root, int targetSum)
+    {
+        if (!root)
+            return false;
+
+        if (!root->left && !root->right)
+        {
+            return targetSum - root->value == 0;
+        }
+
+        targetSum -= root->value;
+
+        return hasPathSum(root->left, targetSum) || hasPathSum(root->right, targetSum);
+    }
+    void hasPathSum(int value)
+    {
+        cout << boolalpha;
+        cout << "Has Path Sum for (" << value << ") in the Tree: ";
+        if (hasPathSum(root, value))
+        {
+            cout << "Yes\n";
+        }
+        else
+        {
+            cout << "No\n";
+        }
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -350,7 +378,9 @@ int main()
 
     // myBST->sumOfLeftLeaves();
 
-    myBST->diameterOfBinaryTree();
+    // myBST->diameterOfBinaryTree();
+
+    myBST->hasPathSum(175);
 
     delete (myBST);
     return 0;
