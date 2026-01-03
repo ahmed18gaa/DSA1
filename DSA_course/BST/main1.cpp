@@ -52,6 +52,17 @@ private:
         return n1->value == n2->value && isMirror(n1->left, n2->right) && isMirror(n1->right, n2->left);
     }
 
+    void inorder(Node *node, vector<int> &res)
+    {
+        if (!node)
+        {
+            return;
+        }
+        inorder(node->left, res);
+        res.push_back(node->value);
+        inorder(node->right, res);
+    }
+
 public:
     BinarySearchTree()
     {
@@ -350,6 +361,23 @@ public:
         cout << "Is Symmetric: " << isSymmetric(root) << endl;
     }
 
+    vector<int> inorderTraversal(Node *root)
+    {
+        vector<int> res;
+        inorder(root, res);
+        return res;
+    }
+    void inorderTraversal()
+    {
+        vector<int> res = inorderTraversal(root);
+        cout << "Inorder Traversal: ";
+        for (int num : res)
+        {
+            cout << num << " ";
+        }
+        cout << endl;
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -407,7 +435,9 @@ int main()
 
     // myBST->hasPathSum(175);
 
-    myBST->isSymmetric();
+    // myBST->isSymmetric();
+
+    myBST->inorderTraversal();
 
     delete (myBST);
     return 0;
