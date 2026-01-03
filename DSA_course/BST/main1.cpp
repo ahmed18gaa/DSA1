@@ -63,6 +63,15 @@ private:
         inorder(node->right, res);
     }
 
+    void postorder(Node *node, vector<int> &res)
+    {
+        if (!node)
+            return;
+        postorder(node->left, res);
+        postorder(node->right, res);
+        res.push_back(node->value);
+    }
+
 public:
     BinarySearchTree()
     {
@@ -378,6 +387,23 @@ public:
         cout << endl;
     }
 
+    vector<int> postorderTraversal(Node *root)
+    {
+        vector<int> res;
+        postorder(root, res);
+        return res;
+    }
+    void postorderTraversal()
+    {
+        vector<int> res = postorderTraversal(root);
+        cout << "Postorder Traversal: ";
+        for (int num : res)
+        {
+            cout << num << " ";
+        }
+        cout << endl;
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -407,37 +433,8 @@ int main()
     myBST->insert(52);
     myBST->insert(82);
     myBST->insert(27);
-    // cout << "BFS: ";
-    // myBST->BFS();
-    // cout << endl;
 
-    // cout << "DFS Pre Order: ";
-    // myBST->DFSPreOrder();
-    // cout << endl;
-
-    // cout << "DFS Post Order: ";
-    // myBST->DFSPostOrder();
-    // cout << endl;
-
-    // cout << "DFS In Order: ";
-    // myBST->DFSInOrder();
-    // cout << endl;
-
-    // myBST->maxDepth();
-
-    // myBST->isCompleteTree();
-
-    // myBST->zigzagLevelOrder();
-
-    // myBST->sumOfLeftLeaves();
-
-    // myBST->diameterOfBinaryTree();
-
-    // myBST->hasPathSum(175);
-
-    // myBST->isSymmetric();
-
-    myBST->inorderTraversal();
+    myBST->postorderTraversal();
 
     delete (myBST);
     return 0;
