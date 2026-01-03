@@ -37,6 +37,21 @@ private:
         return 1 + max(left, right);
     }
 
+    bool isMirror(Node *n1, Node *n2)
+    {
+        if (n1 == nullptr && n2 == nullptr)
+        {
+            return true;
+        }
+
+        if (n1 == nullptr || n2 == nullptr)
+        {
+            return false;
+        }
+
+        return n1->value == n2->value && isMirror(n1->left, n2->right) && isMirror(n1->right, n2->left);
+    }
+
 public:
     BinarySearchTree()
     {
@@ -325,6 +340,16 @@ public:
         }
     }
 
+    bool isSymmetric(Node *root)
+    {
+        return isMirror(root->left, root->right);
+    }
+    void isSymmetric()
+    {
+        cout << boolalpha;
+        cout << "Is Symmetric: " << isSymmetric(root) << endl;
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -380,7 +405,9 @@ int main()
 
     // myBST->diameterOfBinaryTree();
 
-    myBST->hasPathSum(175);
+    // myBST->hasPathSum(175);
+
+    myBST->isSymmetric();
 
     delete (myBST);
     return 0;
