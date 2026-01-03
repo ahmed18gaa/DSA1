@@ -404,6 +404,22 @@ public:
         cout << endl;
     }
 
+    int getMinimumDifference(Node *root)
+    {
+        vector<int> inOrder;
+        inorder(root, inOrder);
+        int minimum = INT_MAX;
+        for (int i = 1; i < inOrder.size(); i++)
+        {
+            minimum = min(minimum, abs(inOrder[i] - inOrder[i - 1]));
+        }
+        return minimum;
+    }
+    void getMinimumDifference()
+    {
+        cout << "Minimum Difference in BST is: " << getMinimumDifference(root) << endl;
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -434,7 +450,7 @@ int main()
     myBST->insert(82);
     myBST->insert(27);
 
-    myBST->postorderTraversal();
+    myBST->getMinimumDifference();
 
     delete (myBST);
     return 0;
