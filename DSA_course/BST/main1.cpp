@@ -20,6 +20,22 @@ class BinarySearchTree
 {
 private:
     Node *root = nullptr;
+    int res = 0;
+
+    int dfs(Node *root)
+    {
+        if (!root)
+        {
+            return 0;
+        }
+
+        int left = dfs(root->left);
+        int right = dfs(root->right);
+
+        res = max(res, left + right);
+
+        return 1 + max(left, right);
+    }
 
 public:
     BinarySearchTree()
@@ -271,6 +287,16 @@ public:
         cout << "Sum Of Left Leaves: " << sumOfLeftLeaves(root) << endl;
     }
 
+    int diameterOfBinaryTree(Node *root)
+    {
+        dfs(root);
+        return res;
+    }
+    void diameterOfBinaryTree()
+    {
+        cout << "Diameter Of Binary Tree: " << diameterOfBinaryTree(root) << endl;
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -300,29 +326,31 @@ int main()
     myBST->insert(52);
     myBST->insert(82);
     myBST->insert(27);
-    cout << "BFS: ";
-    myBST->BFS();
-    cout << endl;
+    // cout << "BFS: ";
+    // myBST->BFS();
+    // cout << endl;
 
-    cout << "DFS Pre Order: ";
-    myBST->DFSPreOrder();
-    cout << endl;
+    // cout << "DFS Pre Order: ";
+    // myBST->DFSPreOrder();
+    // cout << endl;
 
-    cout << "DFS Post Order: ";
-    myBST->DFSPostOrder();
-    cout << endl;
+    // cout << "DFS Post Order: ";
+    // myBST->DFSPostOrder();
+    // cout << endl;
 
-    cout << "DFS In Order: ";
-    myBST->DFSInOrder();
-    cout << endl;
+    // cout << "DFS In Order: ";
+    // myBST->DFSInOrder();
+    // cout << endl;
 
-    myBST->maxDepth();
+    // myBST->maxDepth();
 
-    myBST->isCompleteTree();
+    // myBST->isCompleteTree();
 
-    myBST->zigzagLevelOrder();
+    // myBST->zigzagLevelOrder();
 
-    myBST->sumOfLeftLeaves();
+    // myBST->sumOfLeftLeaves();
+
+    myBST->diameterOfBinaryTree();
 
     delete (myBST);
     return 0;
