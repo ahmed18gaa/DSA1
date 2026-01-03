@@ -420,6 +420,27 @@ public:
         cout << "Minimum Difference in BST is: " << getMinimumDifference(root) << endl;
     }
 
+    Node *invertTree(Node *root)
+    {
+        if (root == nullptr)
+        {
+            return nullptr;
+        }
+
+        Node *temp = root->left;
+        root->left = root->right;
+        root->right = temp;
+
+        invertTree(root->left);
+        invertTree(root->right);
+
+        return root;
+    }
+    void invertTree()
+    {
+        invertTree(root);
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -450,7 +471,9 @@ int main()
     myBST->insert(82);
     myBST->insert(27);
 
-    myBST->getMinimumDifference();
+    myBST->invertTree();
+    myBST->DFSInOrder();
+    cout << endl;
 
     delete (myBST);
     return 0;
