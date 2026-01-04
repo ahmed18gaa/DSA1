@@ -441,6 +441,32 @@ public:
         invertTree(root);
     }
 
+    void solve(Node *root, int &cnt, int &ans, int k)
+    {
+        if (root == NULL)
+            return;
+        solve(root->left, cnt, ans, k);
+        cnt++;
+        if (cnt == k)
+        {
+            ans = root->value;
+            return;
+        }
+        solve(root->right, cnt, ans, k);
+    }
+    int kthSmallest(Node *root, int k)
+    {
+
+        int cnt = 0;
+        int ans;
+        solve(root, cnt, ans, k);
+        return ans;
+    }
+    void kthSmallest(int k)
+    {
+        cout << "kth Smallest of " << k << " is: " << kthSmallest(root, k) << endl;
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -471,9 +497,8 @@ int main()
     myBST->insert(82);
     myBST->insert(27);
 
-    myBST->invertTree();
-    myBST->DFSInOrder();
-    cout << endl;
+    myBST->inorderTraversal();
+    myBST->kthSmallest(5);
 
     delete (myBST);
     return 0;
