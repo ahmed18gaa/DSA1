@@ -37,6 +37,15 @@ private:
         return 1 + max(left, right);
     }
 
+    void dfs(Node *node, int row, int col, vector<tuple<int, int, int>> &nodes)
+    {
+        if (!node)
+            return;
+        nodes.emplace_back(col, row, node->value);
+        dfs(node->left, row + 1, col - 1, nodes);
+        dfs(node->right, row + 1, col + 1, nodes);
+    }
+
     bool isMirror(Node *n1, Node *n2)
     {
         if (n1 == nullptr && n2 == nullptr)
@@ -467,6 +476,45 @@ public:
         cout << "kth Smallest of " << k << " is: " << kthSmallest(root, k) << endl;
     }
 
+    vector<vector<int>> verticalTraversal(Node *root)
+    {
+        vector<tuple<int, int, int>> nodes; // (col, row, val)
+        dfs(root, 0, 0, nodes);
+
+        sort(nodes.begin(), nodes.end());
+
+        vector<vector<int>> res;
+        int prevCol = INT_MIN;
+
+        for (const auto &t : nodes)
+        {
+            int col = get<0>(t);
+            int row = get<1>(t);
+            int val = get<2>(t);
+            if (col != prevCol)
+            {
+                res.push_back({});
+                prevCol = col;
+            }
+            res.back().push_back(val);
+        }
+
+        return res;
+    }
+    void verticalTraversal()
+    {
+        cout << "Vertical Traversal:\n";
+        vector<vector<int>> result = verticalTraversal(root);
+        for (const auto &col : result)
+        {
+            for (int val : col)
+            {
+                cout << val << " ";
+            }
+            cout << endl;
+        }
+    }
+
     void destroy(Node *currentNode)
     {
         if (currentNode == nullptr)
@@ -497,8 +545,7 @@ int main()
     myBST->insert(82);
     myBST->insert(27);
 
-    myBST->inorderTraversal();
-    myBST->kthSmallest(5);
+    myBST->verticalTraversal();
 
     delete (myBST);
     return 0;
