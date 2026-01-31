@@ -597,6 +597,103 @@ public:
         return dummy->next;
     }
 
+    void bubbleSort()
+    {
+        if (length < 2)
+            return;
+
+        Node *sortedUntil = nullptr;
+        while (sortedUntil != head->next)
+        {
+            Node *current = head;
+            while (current->next != sortedUntil)
+            {
+                Node *nextNode = current->next;
+                if (current->value > nextNode->value)
+                {
+                    int temp = current->value;
+                    current->value = nextNode->value;
+                    nextNode->value = temp;
+                }
+                current = current->next;
+            }
+            sortedUntil = current;
+        }
+    }
+
+    void selectionSort()
+    {
+        if (length < 2)
+            return;
+
+        Node *current = head;
+        while (current->next != nullptr)
+        {
+            Node *smallest = current;
+            Node *innerCurrent = current->next;
+
+            while (innerCurrent != nullptr)
+            {
+                if (innerCurrent->value < smallest->value)
+                {
+                    smallest = innerCurrent;
+                }
+                innerCurrent = innerCurrent->next;
+            }
+
+            if (smallest != current)
+            {
+                int temp = current->value;
+                current->value = smallest->value;
+                smallest->value = temp;
+            }
+
+            current = current->next;
+        }
+    }
+
+    void insertionSort()
+    {
+        if (length < 2)
+        {
+            return;
+        }
+
+        Node *sortedListHead = head;
+        Node *unsortedListHead = head->next;
+        sortedListHead->next = nullptr;
+
+        while (unsortedListHead != nullptr)
+        {
+            Node *current = unsortedListHead;
+            unsortedListHead = unsortedListHead->next;
+
+            if (current->value < sortedListHead->value)
+            {
+                current->next = sortedListHead;
+                sortedListHead = current;
+            }
+            else
+            {
+                Node *searchPointer = sortedListHead;
+                while (searchPointer->next != nullptr && current->value > searchPointer->next->value)
+                {
+                    searchPointer = searchPointer->next;
+                }
+                current->next = searchPointer->next;
+                searchPointer->next = current;
+            }
+        }
+
+        head = sortedListHead;
+        Node *temp = head;
+        while (temp->next != nullptr)
+        {
+            temp = temp->next;
+        }
+        tail = temp;
+    }
+
     ~LinkedList()
     {
         Node *temp = head;
@@ -611,33 +708,16 @@ public:
 
 int main()
 {
-    // LinkedList *ll = new LinkedList(43);
-    // ll->Append(23);
-    // ll->Append(86);
-    // ll->Append(22);
-    // ll->Append(22);
-    // ll->printList();
-    // ll->set(1, 24);
-    // ll->printList();
-    // ll->insert(3, 85);
-    // ll->printList();
-    // // ll->reverse();
-    // // ll->printList();
-    // cout << "Middle Node: " << ll->findMiddleNode()->value << endl;
-    // cout << "----------------------" << endl;
-    // ll->removeDuplicates();
-    // ll->printList();
-    // ll->swapPairs();
-    // ll->printList();
     LinkedList *ll = new LinkedList(1);
-    ll->Append(2);
-    ll->Append(3);
+    ll->Append(6);
     ll->Append(4);
     ll->Append(5);
-    ll->Append(6);
-    // ll->reorderList();
+    ll->Append(3);
+    ll->Append(2);
     ll->printList();
-    cout << ll->removeNthFromEnd(3)->value << endl;
+
+    ll->insertionSort();
+
     ll->printList();
     delete ll;
     return 0;
