@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Todo Tide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card" aria-labelledby="todo-title">
+        <header class="card__header">
+          <div>
+            <p class="eyebrow">Keep it light, keep it moving</p>
+            <h1 id="todo-title">Todo Tide</h1>
+            <p class="subtitle">A simple list for the things you want to keep afloat.</p>
+          </div>
+          <div class="badge" aria-hidden="true">3 min setup</div>
+        </header>
+
+        <form class="todo-form" id="todo-form">
+          <label class="sr-only" for="todo-input">Add a new task</label>
+          <input
+            id="todo-input"
+            class="todo-input"
+            type="text"
+            placeholder="Add something you want to finish..."
+            autocomplete="off"
+            maxlength="120"
+          />
+          <button class="add-btn" type="submit">Add</button>
+        </form>
+
+        <section class="toolbar">
+          <div class="count" aria-live="polite">
+            <span id="todo-count">0</span> items
+          </div>
+          <div class="filters" role="tablist" aria-label="Filter tasks">
+            <button class="filter active" data-filter="all" role="tab" aria-selected="true">
+              All
+            </button>
+            <button class="filter" data-filter="active" role="tab" aria-selected="false">
+              Active
+            </button>
+            <button class="filter" data-filter="completed" role="tab" aria-selected="false">
+              Done
+            </button>
+          </div>
+          <button class="ghost-btn" id="clear-completed" type="button">Clear done</button>
+        </section>
+
+        <ul class="todo-list" id="todo-list" aria-live="polite"></ul>
+        <div class="empty" id="empty-state" hidden>
+          <p id="empty-text">Nothing here yet. Add a task to get started.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

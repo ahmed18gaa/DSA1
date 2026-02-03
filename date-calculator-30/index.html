@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حاسبة التواريخ - 30 يوم / 12 شهر</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <p class="tag">حاسبة بسيطة حسب القاعدة المطلوبة</p>
+      <h1>جمع وطرح التواريخ والمدد</h1>
+      <p class="subtitle">
+        القاعدة: الشهر = 30 يوم، السنة = 12 شهر. أي زيادة تُحوَّل تلقائيا.
+      </p>
+    </header>
+
+    <section class="card">
+      <form id="calc-form" novalidate>
+        <div class="field">
+          <label for="operation">نوع العملية</label>
+          <select id="operation" name="operation">
+            <option value="add-date">جمع تاريخين</option>
+            <option value="sub-date">طرح تاريخين (الأول - الثاني)</option>
+            <option value="add-duration">جمع تاريخ + مدة زمنية</option>
+            <option value="sub-duration">طرح تاريخ - مدة زمنية</option>
+          </select>
+        </div>
+
+        <div class="section-title">التاريخ الأول</div>
+        <div class="grid">
+          <div class="field">
+            <label for="y1">السنوات</label>
+            <input id="y1" type="number" min="0" step="1" value="0" />
+          </div>
+          <div class="field">
+            <label for="m1">الأشهر</label>
+            <input id="m1" type="number" min="0" step="1" value="0" />
+          </div>
+          <div class="field">
+            <label for="d1">الأيام</label>
+            <input id="d1" type="number" min="0" step="1" value="0" />
+          </div>
+        </div>
+
+        <div class="section-title" id="second-label" data-date-label="التاريخ الثاني" data-duration-label="المدة الزمنية">التاريخ الثاني</div>
+        <div class="grid">
+          <div class="field">
+            <label for="y2">السنوات</label>
+            <input id="y2" type="number" min="0" step="1" value="0" />
+          </div>
+          <div class="field">
+            <label for="m2">الأشهر</label>
+            <input id="m2" type="number" min="0" step="1" value="0" />
+          </div>
+          <div class="field">
+            <label for="d2">الأيام</label>
+            <input id="d2" type="number" min="0" step="1" value="0" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary">احسب النتيجة</button>
+          <button type="button" id="reset" class="ghost">تصفير</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card result" aria-live="polite">
+      <div class="result-header">
+        <h2>النتيجة بعد التحويل</h2>
+        <p class="result-note">يتم التحويل تلقائيا وفقا للقاعدة (30 يوم / 12 شهر).</p>
+      </div>
+      <div class="result-grid">
+        <div class="stat sign">
+          <span class="label">الإشارة</span>
+          <span class="value" id="out-sign">+</span>
+        </div>
+        <div class="stat">
+          <span class="label">سنوات</span>
+          <span class="value" id="out-years">0</span>
+        </div>
+        <div class="stat">
+          <span class="label">أشهر</span>
+          <span class="value" id="out-months">0</span>
+        </div>
+        <div class="stat">
+          <span class="label">أيام</span>
+          <span class="value" id="out-days">0</span>
+        </div>
+      </div>
+      <div class="result-text" id="result-text" data-year-unit="سنة" data-month-unit="شهر" data-day-unit="يوم" data-separator="،">0 سنة، 0 شهر، 0 يوم</div>
+      <div class="result-total" id="result-total" data-prefix="المجموع بالأيام:">المجموع بالأيام: 0</div>
+    </section>
+
+    <section class="card example">
+      <h3>مثال القاعدة</h3>
+      <p>
+        1 سنة، 11 شهر، 31 يوم 
+        <span class="arrow">←</span>
+        تصبح
+        <span class="highlight">2 سنة، 0 شهر، 1 يوم</span>
+      </p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
